@@ -10,20 +10,21 @@ This fork also includes :
 
 # How to use
 
- * clone this repo
- * build the debian package :
+Clone this repo
+
+Build the debian package :
 
     dpkg-builbpackage
 
- * install the generated packages :
+Install the generated packages :
 
     dpkg -i *.gen
 
- * edit munin-node configuration :
+Edit munin-node configuration :
 
     sudoedit /etc/munin/plugin-conf.d/munin-node
 
- * add the following lines
+Add the following lines
 
     [cassandra_*]
     env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi
@@ -33,27 +34,27 @@ This fork also includes :
     env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi
     env.query java.lang:*
 
- * go to /usr/share/munin/plugins/jmx2munin.cfg/cassandra
+ Go to /usr/share/munin/plugins/jmx2munin.cfg/cassandra
 
     cd /usr/share/munin/plugins/jmx2munin.cfg/cassandra
 
- * install the default scripts :
+Install the default scripts :
 
     sudo ./install.sh
 
- * you can also get informations for a specific column family. Generate the conf with the followinf command :
+You can also get informations for a specific column family. Generate the conf with the followinf command :
 
     sudo ./generate_cf_cfg.sh keyspace cf_name
 
- * and re-run the install script :
+and re-run the install script :
 
     sudo ./install.sh
 
- * restart munin-node :
+Restart munin-node :
 
     sudo /etc/init.d/munin-node restart
 
- * and wait ... Data should appears on your master after a while.
+and wait ... Data should appears on your master after a while.
 
 
 # How to extend
@@ -87,7 +88,7 @@ Finally add a configuration section in /etc/munin/plugin-conf.d/munin-node :
      env.url .....
      env.query .....
 
-At last, send a push request and I'll be packaging your configartion files ;)
+At last, send a push request and I'll be packaging your configuration files ;)
 
 For more informations, look at cassandra examples and [jmx2munin](http://github.com/tcurdt/jmx2munin).
 
