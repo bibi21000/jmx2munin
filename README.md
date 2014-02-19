@@ -1,85 +1,101 @@
-# jmx2munin
+# munin-plugin-jmx2munin
 
-The [jmx2munin](http://github.com/tcurdt/jmx2munin) project exposes JMX MBean attributes to [Munin](http://munin-monitoring.org/).
-Some of it's features:
 
- * strictly complies to the plugin format
- * exposes composite types like Lists, Maps, Set as useful as possible
- * String values can be mapped to numbers
+The [munin-plugin-jmx2munin](http://github.com/bibi21000/munin-plugin-jmx2munin) is a fork of the [jmx2munin](http://github.com/tcurdt/jmx2munin) project. jmx2munin exposes JMX MBean attributes to [Munin](http://munin-monitoring.org/).
+
+This fork also includes :
+
+ * debian files for build packages
+ * a collection of cassandra (2.0) configurations files
 
 # How to use
 
-This is what the Munin script will call. So you should test this first. Of course with your parameters. This example expose all Cassandra information to Munin.
+ * clone this repo
+ * build the debian package :
 
-    java -jar jmx2munin.jar \
-         -url service:jmx:rmi:///jndi/rmi://localhost:7199/jmxrmi \
-         -query "org.apache.cassandra.*:*"
+    dpkg-builbpackage
 
-The "url" parameters specifies the JMX URL, the query selects the MBeans (and optionally also the attributes) to expose.
+ * install the generated packages :
 
-    java -jar jmx2munin.jar \
-         -url service:jmx:rmi:///jndi/rmi://localhost:7199/jmxrmi \
-         -query "org.apache.cassandra.*:*" \
-         -attribute org_apache_cassandra_db_storageservice_livenodes_size
+    dpkg -i *.gen
 
-The script that does the actual interaction with munin you can find in the contrib section. It's the one you should link in the your Munin plugin directory.
+ * edit munin-node configuration :
 
-    :/etc/munin/plugins$ ls -la cassandra_*
-    lrwxrwxrwx 1 root root 37 2011-04-07 19:58 cassandra_nodes_in_cluster -> /usr/share/munin/plugins/jmx2munin.sh
+    sudoedit /etc/munin/plugin-conf.d/munin-node
 
-In the plugin conf you point to the correct configuration
+ * add the following lines
 
     [cassandra_*]
     env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi
     env.query org.apache.cassandra.*:*
 
-    [cassandra_nodes_in_cluster]
-    env.config cassandra/nodes_in_cluster
+    [cassandra_jvm_*]
+    env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi
+    env.query java.lang:*
 
-A possible configuration could look like this
+ * go to /usr/share/munin/plugins/jmx2munin.cfg/cassandra
 
-    graph_title Number of Nodes in Cluster
-    graph_vlabel org_apache_cassandra_db_storageservice_livenodes_size
-    org_apache_cassandra_db_storageservice_livenodes_size.label number of nodes
+    cd /usr/share/munin/plugins/jmx2munin.cfg/cassandra
 
-The script will extract the attributes from the config and caches the JMX results to reduce the load when showing many values. For testing you can run it manually just like munin would.
+ * install the default scripts :
 
-    MUNIN_LIBDIR='/usr/share/munin'
-    config='cassandra/nodes_in_cluster'
-    query='org.apache.cassandra.*:*'
-    /usr/share/munin/plugins/jmx2munin.sh
+    sudo ./install.sh
 
-# More advanced
+ * you can also get informations for a specific column family. Generate the conf with the followinf command :
 
-Sometimes it can be useful to track String values by mapping them into an enum as they really describe states. To find this possible candidates you can call:
+    sudo ./generate_cf_cfg.sh keyspace cf_name
 
-    java -jar jmx2munin.jar \
-         -url service:jmx:rmi:///jndi/rmi://localhost:7199/jmxrmi \
-         -query "org.apache.cassandra.*:*" \
-         -list
+ * and re-run the install script :
 
-It should output a list of possible candidates. This can now be turned into a enum configuration file:
+    sudo ./install.sh
 
-    [org.apache.cassandra.db.StorageService:OperationMode]
-    0 = ^Normal
-    1 = ^Client
-    2 = ^Joining
-    3 = ^Bootstrapping
-    4 = ^Leaving
-    5 = ^Decommissioned
-    6 = ^Starting drain
-    7 = ^Node is drained
+ * restart munin-node :
 
-Which you then can provide:
+    sudo /etc/init.d/munin-node restart
+
+ * and wait ... Data should appears on your master after a while.
+
+
+# How to extend
+
+The jmx2munin.jar (located in /usr/share/munin) could help you to discover JMX metrics.
+
+Use the following command to get all metrics for the vassandra database :
 
     java -jar jmx2munin.jar \
          -url service:jmx:rmi:///jndi/rmi://localhost:7199/jmxrmi \
-         -query "org.apache.cassandra.*:*" \
-         -enums /path/to/enums.cfg
+         -query "org.apache.cassandra.*:*"
 
-Now matching values get replaced by their numerical representation. On the left needs to be a unique number on the right side is a regular expression. If a string cannot be matched according to the spec "U" for "undefined" will be returned.
+This one gives informations about the virutal machine :
+
+    java -jar jmx2munin.jar \
+         -url service:jmx:rmi:///jndi/rmi://localhost:7199/jmxrmi \
+         -query "java.lang:*"
+
+Put your configuration files in /usr/share/munin/plugins/jmx2munin.cfg.
+You must respect the <directory>/script structures. For example, if you want to monitor the number of applications in your tomcat server
+think about someting tomcat7/appwars.
+
+When creating links in /etc/munin/plugins, also respect this rule. It's the way the script retrieve its configuration. For the
+preceding example :
+
+    ln -s /usr/share/munin/plugins/jmx2munin /etc/munin/plugins/tomcat7_appwars
+
+Finally add a configuration section in /etc/munin/plugin-conf.d/munin-node :
+
+     [tomcat7_*]
+     env.url .....
+     env.query .....
+
+At last, send a push request and I'll be packaging your configartion files ;)
+
+For more informations, look at cassandra examples and [jmx2munin](http://github.com/tcurdt/jmx2munin).
 
 # License
 
 Licensed under the Apache License, Version 2.0 (the "License")
-You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+You may obtain a copy of the License at <http://www.apache.org/licenses/LICENSE-2.0/>
+
+Contains also code under GPL-3.0+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.

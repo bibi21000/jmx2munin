@@ -1,0 +1,7 @@
+graph_title Keyspace1.Standard1 Live size on disk
+graph_vlabel Size in bytes
+graph_category Cassandra
+
+org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_livediskspaceused.label Standard1 size on disk
+org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_livediskspaceused.min 0
+org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_livediskspaceused.graph yes

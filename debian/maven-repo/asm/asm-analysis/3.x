@@ -1,0 +1,1 @@
+/usr/share/maven-repo/asm/asm-analysis/3.x

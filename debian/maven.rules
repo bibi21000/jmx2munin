@@ -1,0 +1,4 @@
+
+com.beust jcommander jar s/1\..*/1.x/ * *
+junit junit jar s/4\..*/4.x/ * *
+org.vafer jmx2munin jar s/1\..*/1.x/ * *

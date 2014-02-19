@@ -1,0 +1,1 @@
+/usr/share/maven-repo/org/mortbay/jetty/project/6.x

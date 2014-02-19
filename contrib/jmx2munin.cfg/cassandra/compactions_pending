@@ -1,0 +1,7 @@
+graph_title Compactions pending
+graph_vlabel Compactions
+graph_category Cassandra
+
+org_apache_cassandra_db_compactionmanager_pendingtasks.label compactions pending
+org_apache_cassandra_db_compactionmanager_pendingtasks.min 0
+org_apache_cassandra_db_compactionmanager_pendingtasks.graph yes

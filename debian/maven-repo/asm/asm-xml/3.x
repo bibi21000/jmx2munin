@@ -1,0 +1,1 @@
+/usr/share/maven-repo/asm/asm-xml/3.x

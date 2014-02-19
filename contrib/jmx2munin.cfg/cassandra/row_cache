@@ -1,0 +1,6 @@
+graph_title Row Cache Mean Rate
+graph_vlabel hit rate
+graph_category Cassandra
+
+org_apache_cassandra_metrics_cache_hits_rowcache_meanrate.label mean rate
+org_apache_cassandra_metrics_cache_hits_rowcache_meanrate.graph yes

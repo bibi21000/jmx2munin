@@ -1,0 +1,7 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.geronimo.specs</groupId>
+  <artifactId>specs</artifactId>
+  <version>debian</version>
+  <packaging>pom</packaging>
+</project>

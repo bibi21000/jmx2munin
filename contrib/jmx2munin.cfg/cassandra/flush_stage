@@ -1,0 +1,7 @@
+graph_title Flush stage pending ops
+graph_vlabel Flushes
+graph_category Cassandra
+
+org_apache_cassandra_internal_memtablepostflusher_pendingtasks.label flushes pending
+org_apache_cassandra_internal_memtablepostflusher_pendingtasks.min 0
+org_apache_cassandra_internal_memtablepostflusher_pendingtasks.graph yes

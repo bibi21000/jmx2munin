@@ -1,0 +1,7 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.jboss.ws</groupId>
+  <artifactId>jbossws-parent</artifactId>
+  <version>debian</version>
+  <packaging>pom</packaging>
+</project>

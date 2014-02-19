@@ -1,0 +1,8 @@
+graph_title Compaction bytes completed
+graph_vlabel Bytes
+graph_category Cassandra
+
+org_apache_cassandra_db_compactionmanager_totalbytescompacted.label compacted bytes
+org_apache_cassandra_db_compactionmanager_totalbytescompacted.type DERIVE
+org_apache_cassandra_db_compactionmanager_totalbytescompacted.min 0
+org_apache_cassandra_db_compactionmanager_totalbytescompacted.graph yes

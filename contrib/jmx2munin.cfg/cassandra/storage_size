@@ -1,0 +1,7 @@
+graph_title Storage size
+graph_vlabel Bytes
+graph_category Cassandra
+
+org_apache_cassandra_metrics_storage_load_count.label load count
+org_apache_cassandra_metrics_storage_load_count.min 0
+org_apache_cassandra_metrics_storage_load_count.graph yes

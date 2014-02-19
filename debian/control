@@ -1,0 +1,26 @@
+Source: munin-plugin-jmx2munin
+Section: unknown
+Priority: extra
+Maintainer: Sébastien GALLET <sgallet@gmail.com>
+Build-Depends: debhelper (>= 8.0.0), maven-debian-helper, default-jdk, maven2, apt-file, libjcommander-java,
+ maven-repo-helper, libsurefire-java
+Standards-Version: 3.9.4
+Homepage: https://github.com/bibi21000/munin-plugin-jmx2munin
+Vcs-Git: git://github.com/bibi21000/munin-plugin-jmx2munin
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/munin-plugin-cassandra.git;a=summary
+
+Package: munin-plugin-jmx2munin
+Architecture: all
+Depends: ${misc:Depends}, munin-node, default-jre
+Description: The jmx2munin project exposes JMX MBean attributes to Munin.
+ Some of it's features:
+ - strictly complies to the plugin format
+ - exposes composite types like Lists, Maps, Set as useful as possible
+ - String values can be mapped to numbers
+
+Package: munin-plugin-cassandra
+Architecture: all
+Depends: ${misc:Depends}, munin-plugin-jmx2munin
+Description: Cassandra configurations for jmx2munin.
+ Monitor jvm, cluster or column families.
+ Easely expandable.
