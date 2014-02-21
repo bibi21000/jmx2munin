@@ -8,7 +8,7 @@ This fork also includes :
  * debian files for build packages
  * a collection of cassandra (2.0) configurations files
 
-# How to use
+# Installation
 
 Clone this repo
 
@@ -24,17 +24,21 @@ Edit munin-node configuration :
 
     sudoedit /etc/munin/plugin-conf.d/munin-node
 
+# Cassandra
+
 Add the following lines
 
     [cassandra_*]
     env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi
     env.query org.apache.cassandra.*:*
+    env.ttl 30
 
     [cassandra_jvm_*]
     env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi
     env.query java.lang:*
+    env.ttl 30
 
- Go to /usr/share/munin/plugins/jmx2munin.cfg/cassandra
+Go to /usr/share/munin/plugins/jmx2munin.cfg/cassandra
 
     cd /usr/share/munin/plugins/jmx2munin.cfg/cassandra
 
@@ -57,11 +61,32 @@ Restart munin-node :
 and wait ... Data should appears on your master after a while.
 
 
+# Cassandra
+
+Add the following lines
+
+    [tomcat6_*]
+    env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:9012/jmxrmi
+    env.query Catalina:*
+    env.ttl 30
+
+    [tomcat6_jvm_*]
+    env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:9012/jmxrmi
+    env.query java.lang:*
+    env.ttl 30
+
+# Performances
+
+Collecting data with JMX is a heavy task. It's recomended to cache all calls to JMX (using the ttl env config).
+This can be a good idea, specially for remote hosts or when getting statistics for columns families.
+Gathering data from database can takes up to 30 seconds in my cluster. You can test it by passing "-debug 1"
+when launching jmx2munin. You can also use "-ttl 60" as parameter.
+
 # How to extend
 
 The jmx2munin.jar (located in /usr/share/munin) could help you to discover JMX metrics.
 
-Use the following command to get all metrics for the vassandra database :
+Use the following command to get all metrics for the cassandra database :
 
     java -jar jmx2munin.jar \
          -url service:jmx:rmi:///jndi/rmi://localhost:7199/jmxrmi \

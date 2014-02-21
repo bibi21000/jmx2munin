@@ -1,0 +1,8 @@
+graph_title Thread Count
+graph_vlabel Thread Count
+graph_category Tomcat
+graph_order java_lang_threading_threadcount java_lang_threading_peakthreadcount
+
+java_lang_threading_threadcount.label count
+
+java_lang_threading_peakthreadcount.label peak

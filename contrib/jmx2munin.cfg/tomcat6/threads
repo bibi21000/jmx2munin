@@ -1,0 +1,8 @@
+graph_title Thread Count
+graph_vlabel Thread Count
+graph_category Tomcat
+graph_order catalina_threadpool_http_8080_currentthreadcount catalina_threadpool_http_8080_currentthreadsbusy
+
+catalina_threadpool_http_8080_currentthreadsbusy.label busy
+
+catalina_threadpool_http_8080_currentthreadcount.label current

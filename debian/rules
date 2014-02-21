@@ -18,13 +18,21 @@
 override_dh_install:
 		mvn -s/etc/maven2/settings-debian.xml -Dmaven.repo.local=`pwd`/debian/maven-repo  install
 		mkdir -p debian/tmp/usr/share/munin
-		install -m 755 target/jmx2munin-1.1.jar debian/tmp/usr/share/munin/
+		install -m 755 target/jmx2munin-2.0.jar debian/tmp/usr/share/munin/
 		mkdir -p debian/tmp/usr/share/munin/plugins
 		cp -Rf contrib/jmx2munin.cfg debian/tmp/usr/share/munin/plugins
-		chmod 644 debian/tmp/usr/share/munin/plugins/jmx2munin.cfg/cassandra/*
-		chmod 755 debian/tmp/usr/share/munin/plugins/jmx2munin.cfg/cassandra/generate_cf_cfg.sh
-		chmod 755 debian/tmp/usr/share/munin/plugins/jmx2munin.cfg/cassandra/install.sh
-		dh_link usr/share/munin/jmx2munin-1.1.jar usr/share/munin/jmx2munin.jar
+
+		chmod 644 debian/tmp/usr/share/munin/plugins/jmx2munin.cfg/cassandra2/*
+		chmod 640 debian/tmp/usr/share/munin/plugins/jmx2munin.cfg/cassandra2/*.conf
+		chmod 755 debian/tmp/usr/share/munin/plugins/jmx2munin.cfg/cassandra2/*.sh
+		dh_link usr/share/munin/plugins/jmx2munin usr/share/munin/plugins/cassandra2_
+
+		chmod 644 debian/tmp/usr/share/munin/plugins/jmx2munin.cfg/tomcat6/*
+		chmod 640 debian/tmp/usr/share/munin/plugins/jmx2munin.cfg/tomcat6/*.conf
+		chmod 755 debian/tmp/usr/share/munin/plugins/jmx2munin.cfg/tomcat6/*.sh
+		dh_link usr/share/munin/plugins/jmx2munin usr/share/munin/plugins/tomcat6_
+
+		dh_link usr/share/munin/jmx2munin-2.0.jar usr/share/munin/jmx2munin.jar
 		install -m 755 contrib/jmx2munin.sh debian/tmp/usr/share/munin/plugins/jmx2munin
 		dh_install --sourcedir=debian/tmp
 

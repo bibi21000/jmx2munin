@@ -1,0 +1,18 @@
+graph_args --upper-limit 100 -l 0
+graph_scale no
+graph_title JVM CPU Usage
+graph_vlabel 1000* CPU time %
+graph_category Tomcat
+graph_order java_lang_threading_currentthreadcputime java_lang_threading_currentthreadusertime
+
+java_lang_threading_currentthreadcputime.label cpu
+java_lang_threading_currentthreadcputime.type DERIVE
+java_lang_threading_currentthreadcputime.min 0
+java_lang_threading_currentthreadcputime.graph yes
+#java_lang_threading_currentthreadcputime.cdef 0,java_lang_threading_currentthreadcputime,3000000,/
+
+java_lang_threading_currentthreadusertime.label user
+java_lang_threading_currentthreadusertime.type DERIVE
+java_lang_threading_currentthreadusertime.min 0
+java_lang_threading_currentthreadusertime.graph yes
+#java_lang_threading_currentthreadusertime.cdef 0,java_lang_threading_currentthreadusertime,3000000,/

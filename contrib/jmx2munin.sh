@@ -1,9 +1,37 @@
 #!/bin/bash
-# [cassandra_nodes_in_cluster]
-# env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi
-# env.query org.apache.cassandra.*:*
-# env.config cassandra/nodes_in_cluster
-# sets the 'config' and 'query' and 'url' variables for this script
+# -*- sh -*-
+
+: << =cut
+
+=head1 NAME
+
+JMX plugin for Cassandra, Tomcat, ...
+
+=head1 CONFIGURATION
+
+[cassandra2_*]
+env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi
+env.query org.apache.cassandra.*:*
+
+[tomcat6_*]
+env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:9012/jmxrmi
+env.query Catalina:*
+
+=head1 AUTHOR
+
+bibi21000 <bibi21000@gmail.com>
+
+=head1 LICENSE
+
+APLv2
+GPLv2
+
+=head1 MAGICK MARKERS
+
+ #%# family=auto
+ #%# capabilities=autoconf suggest
+
+=cut
 
 if [ -z "$MUNIN_LIBDIR" ]; then
     MUNIN_LIBDIR="`dirname $(dirname "$0")`"
@@ -13,14 +41,35 @@ if [ -f "$MUNIN_LIBDIR/plugins/plugin.sh" ]; then
     . $MUNIN_LIBDIR/plugins/plugin.sh
 fi
 
-if [ "$1" = "autoconf" ]; then
+if [ "$1" == "autoconf" ]; then
     echo yes
+    exit 0
+fi
+
+if [ "$1" = "suggest" ]; then
+    plugin=$(echo ${0} | sed -e "s#.*/##g" -e "s/_*$//g" )
+    [ ! -z "$MUNIN_LIBDIR" ] && cd "$MUNIN_LIBDIR"/plugins
+    [ ! -d jmx2munin.cfg/${plugin} ] && exit 0
+    cd jmx2munin.cfg/${plugin}/
+    for file in *; do
+        [[ "$file" != *standard1* ]] || continue
+        [[ "$file" != *\.sh* ]] || continue
+        [[ "$file" != *\.conf* ]] || continue
+        echo "$file"
+    done
     exit 0
 fi
 
 if [ -z "$url" ]; then
   # this is very common so make it a default
   url="service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi"
+fi
+
+if [ ! -z "$ttl" ]; then
+  # a time to live is set. We will use the cache
+  CACHEOPTS="-ttl $ttl"
+else
+  CACHEOPTS=""
 fi
 
 [ -z "$config" ] && config=$(echo ${0} | sed -e "s#.*/##g" -e "s#_#/#")
@@ -46,6 +95,7 @@ if test ! -f $CACHED || test `find "$CACHED" -mmin +2`; then
     java -jar "$JAR" \
       -url "$url" \
       -query "$query" \
+      $CACHEOPTS \
       $ATTRIBUTES \
       > $CACHED
 

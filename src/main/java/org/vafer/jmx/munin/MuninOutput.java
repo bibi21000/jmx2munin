@@ -16,6 +16,10 @@ public final class MuninOutput implements Output {
 
     private final Enums enums;
 
+    public MuninOutput() {
+        this.enums = null;
+    }
+
     public MuninOutput(Enums enums) {
         this.enums = enums;
     }

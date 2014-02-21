@@ -11,7 +11,7 @@ Vcs-Git: git://github.com/bibi21000/munin-plugin-jmx2munin
 
 Package: munin-plugin-jmx2munin
 Architecture: all
-Depends: ${misc:Depends}, munin-node, default-jre
+Depends: ${misc:Depends}, munin-node, default-jre-headless | default-jre
 Description: The jmx2munin project exposes JMX MBean attributes to Munin.
  Some of it's features:
  - strictly complies to the plugin format
@@ -20,7 +20,14 @@ Description: The jmx2munin project exposes JMX MBean attributes to Munin.
 
 Package: munin-plugin-cassandra
 Architecture: all
-Depends: ${misc:Depends}, munin-plugin-jmx2munin
+Depends: ${misc:Depends}, munin-plugin-jmx2munin (= ${binary:Version})
 Description: Cassandra configurations for jmx2munin.
- Monitor jvm, cluster or column families.
+ Monitor jvm, cluster, column families, ...
+ Easely expandable.
+
+Package: munin-plugin-tomcat
+Architecture: all
+Depends: ${misc:Depends}, munin-plugin-jmx2munin (= ${binary:Version})
+Description: Tomcat configurations for jmx2munin.
+ Monitor jvm, catalina, ...
  Easely expandable.
