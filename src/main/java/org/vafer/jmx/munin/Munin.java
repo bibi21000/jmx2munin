@@ -22,6 +22,9 @@ public final class Munin {
     @Parameter(names = "-username", description = "remote username")
     private String username;
 
+    @Parameter(names = "-cryptkey", description = "key used to crypt data in local store")
+    private String cryptkey;
+
     @Parameter(names = "-password", description = "remote password")
     private String password;
 
@@ -41,6 +44,12 @@ public final class Munin {
     private int debug;
 
     private void run() throws Exception {
+        //System.out.println("Do not crypt data '" + cryptkey + "'");
+
+        //if (cryptkey != null) {
+        //    cryptkey = username+password+cryptkey;
+        //}
+
         final Filter filter;
         if (attributes == null || attributes.isEmpty()) {
             filter = new NoFilter();
@@ -66,7 +75,7 @@ public final class Munin {
         }
 
         for(String query : queries) {
-            new Query().run(url, credentials, query, filter, output, ttl, debug);
+            new Query().run(url, credentials, query, filter, output, ttl, debug, cryptkey);
         }
     }
 

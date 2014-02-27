@@ -1,4 +1,4 @@
-graph_title StorageProxy operation count
+graph_title Keyspace1.Standard1 reads/writes
 graph_vlabel ops / ${graph_period}
 graph_category Cassandra
 graph_order org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_readcount org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_writecount

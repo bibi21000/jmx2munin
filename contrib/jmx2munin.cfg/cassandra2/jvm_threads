@@ -1,4 +1,4 @@
-graph_title Thread Count
+graph_title JVM Thread Count
 graph_vlabel Thread Count
 graph_category Cassandra
 graph_order java_lang_threading_threadcount java_lang_threading_peakthreadcount

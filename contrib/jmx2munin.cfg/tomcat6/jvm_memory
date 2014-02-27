@@ -15,6 +15,6 @@ java_lang_memory_heapmemoryusage_used.label heap used
 
 java_lang_memory_heapmemoryusage_max.label heap max
 
-java_lang_operatingsystem_freephysicalmemorysize.value.label os free mem
+java_lang_operatingsystem_freephysicalmemorysize.label os free mem
 
 java_lang_operatingsystem_committedvirtualmemorysize.label os vmem committed

@@ -5,8 +5,12 @@ The [munin-plugin-jmx2munin](http://github.com/bibi21000/munin-plugin-jmx2munin)
 
 This fork also includes :
 
- * debian files for build packages
- * a collection of cassandra (2.0) configurations files
+ * a low level cache for JMX connections (reduce CPU use 10x)
+ * authentication for JMX
+ * fully compliant with --suggest option
+ * debian files for building packages for Ubuntu/Debian
+ * scripts and configurations files for cassandra (2.0)
+ * scripts and configurations files for tomcat (6.0)
 
 # Installation
 
@@ -16,31 +20,22 @@ Build the debian package :
 
     dpkg-builbpackage
 
+Resolve dependencies and built it again :) :
+
+    dpkg-builbpackage
+
 Install the generated packages :
 
-    dpkg -i *.gen
+    dpkg -i *.deb
 
-Edit munin-node configuration :
-
-    sudoedit /etc/munin/plugin-conf.d/munin-node
+For non-debian distributions, look at debian/control file to get build dependencies. The debian/rules is the Makefile of the package. It contains all
+the commands used to built it. After that, files are installed using the debian/*.install templates. Good luck :)
 
 # Cassandra
 
-Add the following lines
+Go to /usr/share/munin/plugins/jmx2munin.cfg/cassandra2
 
-    [cassandra_*]
-    env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi
-    env.query org.apache.cassandra.*:*
-    env.ttl 30
-
-    [cassandra_jvm_*]
-    env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi
-    env.query java.lang:*
-    env.ttl 30
-
-Go to /usr/share/munin/plugins/jmx2munin.cfg/cassandra
-
-    cd /usr/share/munin/plugins/jmx2munin.cfg/cassandra
+    cd /usr/share/munin/plugins/jmx2munin.cfg/cassandra2
 
 Install the default scripts :
 
@@ -54,33 +49,96 @@ and re-run the install script :
 
     sudo ./install.sh
 
+Update configuration in /etc/munin/plugin-conf.d/cassandra2
+
+    [cassandra2_db_*]
+    env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi
+    env.query org.apache.cassandra.db:*
+    env.ttl 60
+    [cassandra2_int_*]
+    env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi
+    env.query org.apache.cassandra.internal:*
+    env.ttl 60
+    [cassandra2_jvm_*]
+    env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi
+    env.query java.lang:*
+    env.ttl 60
+    [cassandra2_met_*]
+    env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi
+    env.query org.apache.cassandra.metrics:*
+    env.ttl 60
+    [cassandra2_req_*]
+    env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi
+    env.query org.apache.cassandra.request:*
+    env.ttl 60
+
+You can also use a more generic configuration :
+
+    [cassandra2_*]
+    env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi
+    env.query org.apache.cassandra.*:*
+    env.ttl 60
+    [cassandra2_jvm_*]
+    env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:7199/jmxrmi
+    env.query java.lang:*
+    env.ttl 60
+
+But keep in min that in this case, the full JMX datas (more thant 3MB) will be requested at a time. In the first example, all data will be downloaded but in 4 parts.
+
 Restart munin-node :
 
     sudo /etc/init.d/munin-node restart
 
-and wait ... Data should appears on your master after a while.
+and wait ... and wait ... and wait ... Data should appears on your master after a while (15 minutes).
 
+# Tomcat
 
-# Cassandra
+Go to /usr/share/munin/plugins/jmx2munin.cfg/tomcat6
 
-Add the following lines
+    cd /usr/share/munin/plugins/jmx2munin.cfg/tomcat6
+
+Install the default scripts :
+
+    sudo ./install.sh
+
+Update configuration in /etc/munin/plugin-conf.d/tomcat6
 
     [tomcat6_*]
     env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:9012/jmxrmi
     env.query Catalina:*
-    env.ttl 30
+    env.ttl 60
 
     [tomcat6_jvm_*]
     env.url service:jmx:rmi:///jndi/rmi://127.0.0.1:9012/jmxrmi
     env.query java.lang:*
-    env.ttl 30
+    env.ttl 60
+
+Restart munin-node :
+
+    sudo /etc/init.d/munin-node restart
+
+and wait ... and wait ... and wait ... Data should appears on your master after a while (15 minutes).
 
 # Performances
 
-Collecting data with JMX is a heavy task. It's recomended to cache all calls to JMX (using the ttl env config).
-This can be a good idea, specially for remote hosts or when getting statistics for columns families.
-Gathering data from database can takes up to 30 seconds in my cluster. You can test it by passing "-debug 1"
-when launching jmx2munin. You can also use "-ttl 60" as parameter.
+Collecting data with JMX is a heavy task.
+On my small test cluster (1 core/1.5G RAM), gathering data for about 10 jmx2munin plugins takes approximatively 50% of CPU !!!
+This plugin retrieve all data available by JMX each time the plugin is called. I decided to implement a low level cache.
+
+So, it's recomended to cache all calls to JMX (using the ttl env config).
+
+You can get the duration of the JMX request using "-debug 1" as parameter for jmx2munin.jar. You can get the cache size looking at the /tmp directory.
+
+If you need authentication, add the following line to your configuration file :
+
+    env.username remote_user
+    env.password remote_password
+
+For paranoids, add :
+
+    env.cryptkey mylooooongkey
+
+This key will be use to crypt data in the cache local store.
 
 # How to extend
 
@@ -100,10 +158,10 @@ This one gives informations about the virutal machine :
 
 Put your configuration files in /usr/share/munin/plugins/jmx2munin.cfg.
 You must respect the <directory>/script structures. For example, if you want to monitor the number of applications in your tomcat server
-think about someting tomcat7/appwars.
+think about something tomcat7/appwars.
 
 When creating links in /etc/munin/plugins, also respect this rule. It's the way the script retrieve its configuration. For the
-preceding example :
+preceeding example :
 
     ln -s /usr/share/munin/plugins/jmx2munin /etc/munin/plugins/tomcat7_appwars
 
@@ -113,9 +171,11 @@ Finally add a configuration section in /etc/munin/plugin-conf.d/munin-node :
      env.url .....
      env.query .....
 
-At last, send a push request and I'll be packaging your configuration files ;)
+It's important to respect this rules otherwise some functiunalities (like --suggest) will not work.
 
-For more informations, look at cassandra examples and [jmx2munin](http://github.com/tcurdt/jmx2munin).
+At last, send a push request :) Patches are also accepted :D
+
+For more informations, look at included examples and [jmx2munin](http://github.com/tcurdt/jmx2munin).
 
 # License
 

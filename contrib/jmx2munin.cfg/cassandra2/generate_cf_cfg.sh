@@ -23,7 +23,7 @@ COLUMNFAMILY=$(echo ${2} | sed 's/.*/\L&/')
 #
 for filename in standard1_*;
 do
-    outfile=$(echo $filename | sed "s/standard1/${KEYSPACE}_${COLUMNFAMILY}/")
+    outfile=$(echo $filename | sed "s/standard1/db_${KEYSPACE}_${COLUMNFAMILY}/")
     echo $outfile
     sed -e "s/Keyspace1/$KEYSPACE/g" -e "s/Standard1/$COLUMNFAMILY/g" < $filename > $outfile
     chmod 644 $outfile

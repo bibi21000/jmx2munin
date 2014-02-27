@@ -48,7 +48,7 @@ fi
 
 if [ "$1" = "suggest" ]; then
     plugin=$(echo ${0} | sed -e "s#.*/##g" -e "s/_*$//g" )
-    [ ! -z "$MUNIN_LIBDIR" ] && cd "$MUNIN_LIBDIR"/plugins
+    [ ! -z "$MUNIN_LIBDIR" ] && [ -d "$MUNIN_LIBDIR"/plugins ] && cd "$MUNIN_LIBDIR"/plugins
     [ ! -d jmx2munin.cfg/${plugin} ] && exit 0
     cd jmx2munin.cfg/${plugin}/
     for file in *; do
@@ -72,10 +72,16 @@ else
   CACHEOPTS=""
 fi
 
+if [ ! -z "$cryptkey" ]; then
+  # a cryptkey is available. We will use it
+  CACHEOPTS="-cryptkey $cryptkey" CACHEOPTS
+fi
+
 [ -z "$config" ] && config=$(echo ${0} | sed -e "s#.*/##g" -e "s#_#/#")
 
 if [ -z "$config" -o -z "$query" -o -z "$url" ]; then
   echo "Configuration needs attributes config, query and optinally url"
+  [ $config = "jmx2munin" ] && exit 0
   exit 1
 fi
 

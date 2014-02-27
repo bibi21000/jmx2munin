@@ -26,10 +26,12 @@ import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
 
+import org.vafer.jmx.munin.Version;
+
 public final class Query {
 
 
-    public void run(String url, Map credentials, String expression, Filter filter, Output output, int ttl, int debug) throws IOException, MalformedObjectNameException, InstanceNotFoundException, ReflectionException, IntrospectionException, AttributeNotFoundException, MBeanException {
+    public void run(String url, Map credentials, String expression, Filter filter, Output output, int ttl, int debug, String cryptkey) throws IOException, MalformedObjectNameException, InstanceNotFoundException, ReflectionException, IntrospectionException, AttributeNotFoundException, MBeanException {
         JMXConnector connector = null;
         long start_at = System.currentTimeMillis();
         try {
@@ -37,7 +39,7 @@ public final class Query {
             boolean timeout = true;
             if (ttl!=0) {
                 //Retrieve the serial file and evaluate timeout
-                cache = new CacheOutput(url,expression);
+                cache = new CacheOutput(url,expression, cryptkey, debug);
                 if (cache.timeout(ttl)==false) {
                     //System.err.println("set timeout to false");
                     timeout=false;
@@ -98,6 +100,9 @@ public final class Query {
                     }
                 }
             } else {
+                if (debug>3) {
+                    System.err.println("Get data from cache");
+                }
                 //We use data stored in cache
                 Enumeration enumeration = cache.store.elements();
                 while (enumeration.hasMoreElements()) {
@@ -119,6 +124,7 @@ public final class Query {
             }
             if (debug>0) {
                 System.err.println("JMX request duration (ms) : " + (System.currentTimeMillis()-start_at));
+                System.err.println("jmx2munin version " + Version.VERSION);
             }
         }
     }
