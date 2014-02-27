@@ -1,7 +1,7 @@
 graph_title Keyspace1.Standard1 Tombstone Ratio
 graph_vlabel %
 graph_category Cassandra
-graph_args --upper-limit 100
+graph_args --upper-limit 1 --lower-limit 0
 
 org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_droppabletombstoneratio.label ratio tombstones/lives
 org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_droppabletombstoneratio.graph yes
