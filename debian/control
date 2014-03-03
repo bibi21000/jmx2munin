@@ -2,7 +2,7 @@ Source: munin-plugin-jmx2munin
 Section: unknown
 Priority: extra
 Maintainer: Sébastien GALLET <sgallet@gmail.com>
-Build-Depends: debhelper (>= 8.0.0), maven-debian-helper, default-jdk, maven2|maven, apt-file, libjcommander-java,
+Build-Depends: debhelper (>= 8.0.0), maven-debian-helper, default-jdk, maven2 | maven, apt-file, libjcommander-java,
  maven-repo-helper, libsurefire-java
 Standards-Version: 3.9.4
 Homepage: https://github.com/bibi21000/munin-plugin-jmx2munin
