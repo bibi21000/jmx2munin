@@ -1,6 +1,7 @@
 graph_title Operations pending
 graph_vlabel Operations
 graph_category Cassandra
+graph_args --base 1000 -l 0
 graph_order org_apache_cassandra_request_readstage_pendingtasks org_apache_cassandra_request_mutationstage_pendingtasks
 
 org_apache_cassandra_request_readstage_pendingtasks.label compactions pending

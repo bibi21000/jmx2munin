@@ -2,7 +2,10 @@ graph_title Catalina Thread Count
 graph_vlabel Thread Count
 graph_category Tomcat
 graph_order catalina_threadpool_http_8080_currentthreadcount catalina_threadpool_http_8080_currentthreadsbusy
+graph_args --base 1000 -l 0
 
 catalina_threadpool_http_8080_currentthreadsbusy.label busy
+catalina_threadpool_http_8080_currentthreadsbusy.min 0
 
 catalina_threadpool_http_8080_currentthreadcount.label current
+catalina_threadpool_http_8080_currentthreadcount.min 0

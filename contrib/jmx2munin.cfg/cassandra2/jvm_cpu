@@ -1,18 +1,26 @@
-graph_args --upper-limit 100 -l 0
-graph_scale no
 graph_title JVM CPU Usage
-graph_vlabel 1000* CPU time %
+graph_args -l 0 --base 1000
+graph_scale no
+graph_vlabel CPU time (ms)
 graph_category Cassandra
-graph_order java_lang_threading_currentthreadcputime java_lang_threading_currentthreadusertime
+graph_order cpu=java_lang_threading_currentthreadcputime user=java_lang_threading_currentthreadusertime
 
 java_lang_threading_currentthreadcputime.label cpu
 java_lang_threading_currentthreadcputime.type DERIVE
 java_lang_threading_currentthreadcputime.min 0
 java_lang_threading_currentthreadcputime.graph yes
-#java_lang_threading_currentthreadcputime.cdef 0,java_lang_threading_currentthreadcputime,3000000,/
+java_lang_threading_currentthreadcputime.cdef cpu,1000000,/
+java_lang_threading_currentthreadcputime.info Returns the total CPU time in milliseconds. If the implementation distinguishes between user mode time and system mode time, the returned CPU time is the amount of time that the thread has executed in user mode or system mode.
+
+cpu.graph no
+cpu.label cputime in nanoseconds
 
 java_lang_threading_currentthreadusertime.label user
 java_lang_threading_currentthreadusertime.type DERIVE
 java_lang_threading_currentthreadusertime.min 0
 java_lang_threading_currentthreadusertime.graph yes
-#java_lang_threading_currentthreadusertime.cdef 0,java_lang_threading_currentthreadusertime,3000000,/
+java_lang_threading_currentthreadusertime.cdef user,1000000,/
+java_lang_threading_currentthreadusertime.info Returns the CPU time in user mode in milliseconds.
+
+user.graph no
+user.label user time in nanoseconds

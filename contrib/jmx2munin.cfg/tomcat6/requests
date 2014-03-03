@@ -2,6 +2,7 @@ graph_title Requests Per Second
 graph_vlabel requests per second
 graph_category Tomcat
 graph_order catalina_globalrequestprocessor_http_8080_requestcount catalina_globalrequestprocessor_http_8080_errorcount
+graph_args --base 1000 -l 0
 
 catalina_globalrequestprocessor_http_8080_requestcount.label requests
 catalina_globalrequestprocessor_http_8080_requestcount.type DERIVE

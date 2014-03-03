@@ -2,7 +2,10 @@ graph_title JVM Thread Count
 graph_vlabel Thread Count
 graph_category Cassandra
 graph_order java_lang_threading_threadcount java_lang_threading_peakthreadcount
+graph_args --base 1000 -l 0
 
 java_lang_threading_threadcount.label count
+java_lang_threading_threadcount.info Number of active threads in the system
 
 java_lang_threading_peakthreadcount.label peak
+java_lang_threading_peakthreadcount.info Peak count of active threads in the system

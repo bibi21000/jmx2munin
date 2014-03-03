@@ -1,0 +1,14 @@
+graph_title JVM OS Memory
+graph_vlabel Bytes
+graph_category Tomcat
+graph_args --base 1024 -l 0
+graph_order java_lang_operatingsystem_freephysicalmemorysize java_lang_operatingsystem_committedvirtualmemorysize java_lang_operatingsystem_freeswapspacesize
+
+java_lang_operatingsystem_freephysicalmemorysize.label os free mem
+java_lang_operatingsystem_freephysicalmemorysize.info The amount of free physical memory for the OS
+
+java_lang_operatingsystem_freeswapspacesize.label os free swap
+java_lang_operatingsystem_freeswapspacesize.info The amount of free swap space for the OS
+
+java_lang_operatingsystem_committedvirtualmemorysize.label os vmem committed
+java_lang_operatingsystem_committedvirtualmemorysize.info Size of virtual memory used by this process

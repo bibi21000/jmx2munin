@@ -1,7 +1,9 @@
 graph_title Compactions pending
 graph_vlabel Compactions
 graph_category Cassandra
+graph_args --base 1000 -l 0
 
 org_apache_cassandra_db_compactionmanager_pendingtasks.label compactions pending
 org_apache_cassandra_db_compactionmanager_pendingtasks.min 0
 org_apache_cassandra_db_compactionmanager_pendingtasks.graph yes
+org_apache_cassandra_db_compactionmanager_pendingtasks.info Estimated number of pending compaction tasks.

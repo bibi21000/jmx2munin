@@ -1,7 +1,9 @@
 graph_title Storage size
 graph_vlabel Bytes
 graph_category Cassandra
+graph_args --base 1024 -l 0
 
 org_apache_cassandra_metrics_storage_load_count.label load count
 org_apache_cassandra_metrics_storage_load_count.min 0
 org_apache_cassandra_metrics_storage_load_count.graph yes
+org_apache_cassandra_metrics_storage_load_count.info Total disk space used (in bytes) for this node.

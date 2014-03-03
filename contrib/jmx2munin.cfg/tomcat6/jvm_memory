@@ -1,20 +1,23 @@
-graph_title Process Memory
+graph_title JVM Process Memory
 graph_vlabel Bytes
 graph_category Tomcat
-graph_order java_lang_memory_nonheapmemoryusage_committed java_lang_memory_nonheapmemoryusage_max java_lang_memory_nonheapmemoryusage_used java_lang_memory_heapmemoryusage_committed java_lang_memory_heapmemoryusage_max java_lang_memory_heapmemoryusage_used java_lang_operatingsystem_freephysicalmemorysize.value java_lang_operatingsystem_committedvirtualmemorysize
+graph_args --base 1024 -l 0
+graph_order java_lang_memory_nonheapmemoryusage_committed java_lang_memory_nonheapmemoryusage_max java_lang_memory_nonheapmemoryusage_used java_lang_memory_heapmemoryusage_committed java_lang_memory_heapmemoryusage_max java_lang_memory_heapmemoryusage_used
 
 java_lang_memory_nonheapmemoryusage_committed.label non-heap committed
+java_lang_memory_nonheapmemoryusage_committed.info Current memory allocated outside the heap. This amount of memory is guaranteed for the Java virtual machine to use.
 
 java_lang_memory_nonheapmemoryusage_used.label non-heap used
+java_lang_memory_nonheapmemoryusage_used.info Current memory usage outside the heap.
 
 java_lang_memory_nonheapmemoryusage_max.label non-heap max
+java_lang_memory_nonheapmemoryusage_max.info Maximum amount of non-heap memory that can be used for memory management. This amount of memory is not guaranteed to be available if it is greater than the amount of committed memory. The Java virtual machine may fail to allocate memory even if the amount of used memory does not exceed this maximum size.
 
 java_lang_memory_heapmemoryusage_committed.label heap committed
+java_lang_memory_heapmemoryusage_committed.info Current heap memory allocated. This amount of memory is guaranteed for the Java virtual machine to use.
 
 java_lang_memory_heapmemoryusage_used.label heap used
+java_lang_memory_heapmemoryusage_used.info Current heap memory usage.
 
 java_lang_memory_heapmemoryusage_max.label heap max
-
-java_lang_operatingsystem_freephysicalmemorysize.label os free mem
-
-java_lang_operatingsystem_committedvirtualmemorysize.label os vmem committed
+java_lang_memory_heapmemoryusage_max.info Maximum amount of heap that can be used for memory management. This amount of memory is not guaranteed to be available if it is greater than the amount of committed memory. The Java virtual machine may fail to allocate memory even if the amount of used memory does not exceed this maximum size.
