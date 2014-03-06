@@ -26,6 +26,7 @@ override_dh_install:
 		mkdir -p debian/tmp/etc/munin/plugin-conf.d/
 
 		install -m 755 target/jmx2munin-2.0.jar debian/tmp/usr/share/munin/
+		install -m 755 target/jmx2munin-2.0.jar jar/jmx2munin.jar
 
 		cp -Rf contrib/jmx2munin.cfg debian/tmp/usr/share/munin/plugins
 
