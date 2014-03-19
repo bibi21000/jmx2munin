@@ -29,7 +29,8 @@ Install the generated packages :
     dpkg -i *.deb
 
 For non-debian distributions, look at debian/control file to get build dependencies. The debian/rules is the Makefile of the package. It contains all
-the commands used to built it. After that, files are installed using the debian/*.install templates. Good luck :)
+the commands used to built it. After that, files are installed using the debian/*.install templates. You can also use the jar (in the jar directory) if you don't
+want to build it. Good luck :)
 
 # Cassandra
 
@@ -83,7 +84,7 @@ You can also use a more generic configuration :
     env.query java.lang:*
     env.ttl 60
 
-But keep in min that in this case, the full JMX datas (more thant 3MB) will be requested at a time. In the first example, all data will be downloaded but in 4 parts.
+But keep in mind that in this case, the full JMX datas (more than 3MB) will be requested at a time. In the first example, all data will be downloaded but in 4 parts.
 
 Restart munin-node :
 

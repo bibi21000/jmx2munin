@@ -1,11 +1,11 @@
-munin-plugin-jmx2munin (2.0-26) unstable; urgency=low
+munin-plugin-jmx2munin (2.0-28) unstable; urgency=low
 
   * Add suggest.
   * Fix and cassandra configurations.
   * Add tomcat 6 configurations.
   * Add authentication
 
- -- Sébastien GALLET <sgallet@gmail.com>  Fri, 21 Feb 2014 09:03:51 +0100
+ -- Sébastien GALLET <sgallet@gmail.com>  Fri, 7 Mar 2014 19:03:51 +0100
 
 munin-plugin-jmx2munin (2.0-4) unstable; urgency=low
 

@@ -21,9 +21,9 @@ fi
 KEYSPACE=$(echo ${1} | sed 's/.*/\L&/')
 COLUMNFAMILY=$(echo ${2} | sed 's/.*/\L&/')
 #
-for filename in standard1_*;
+for filename in db_standard1_* met_standard1_*;
 do
-    outfile=$(echo $filename | sed "s/standard1/db_${KEYSPACE}_${COLUMNFAMILY}/")
+    outfile=$(echo $filename | sed "s/standard1/${KEYSPACE}_${COLUMNFAMILY}/")
     echo $outfile
     sed -e "s/Keyspace1/$KEYSPACE/g" -e "s/Standard1/$COLUMNFAMILY/g" < $filename > $outfile
     chmod 644 $outfile
