@@ -1,0 +1,8 @@
+graph_title JVM Garbage Collector
+graph_vlabel # of garbage collectors
+graph_category Tomcat
+graph_order java_lang_garbagecollector_concurrentmarksweep_collectioncount
+graph_args --base 1000 -l 0
+
+java_lang_garbagecollector_concurrentmarksweep_collectioncount.label count
+java_lang_garbagecollector_concurrentmarksweep_collectioncount.info Number of garbage collect
