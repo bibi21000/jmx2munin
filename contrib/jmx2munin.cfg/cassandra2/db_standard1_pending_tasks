@@ -1,0 +1,9 @@
+graph_title Keyspace1.Standard1 Pending tasks
+graph_vlabel Tasks
+graph_category Cassandra
+graph_args --base 1000 -l 0
+
+org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_pendingtasks.label Standard1 sstable count
+org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_pendingtasks.min 0
+org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_pendingtasks.graph yes
+org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_pendingtasks.info Number of 'live' SSTables.

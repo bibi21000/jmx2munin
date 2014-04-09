@@ -2,6 +2,7 @@ graph_title Hinted handoff operations pending
 graph_vlabel Ops pending
 graph_category Cassandra
 graph_args --base 1000 -l 0
+graph_order org_apache_cassandra_internal_hintedhandoff_pendingtasks
 
 org_apache_cassandra_internal_hintedhandoff_pendingtasks.label hh ops pending
 org_apache_cassandra_internal_hintedhandoff_pendingtasks.min 0

@@ -28,9 +28,12 @@ Install the generated packages :
 
     dpkg -i *.deb
 
-For non-debian distributions, look at debian/control file to get build dependencies. The debian/rules is the Makefile of the package. It contains all
-the commands used to built it. After that, files are installed using the debian/*.install templates. You can also use the jar (in the jar directory) if you don't
-want to build it. Good luck :)
+Or build the RPM, after installing dependencies :
+
+	debbuild -ba -vv munin-plugin-jmx2munin.spec
+	
+You can find prebuilt packages for Debian/ ubuntu [here] (http://bibi21000.gallet.info/index.php/fr/ubuntu-fr/127-depots-ubuntu/administrateurs-systemes/212-ajouter-le-depot-pour-les-administrateurs-systemes.html)
+and for Fedora [here] (http://bibi21000.gallet.info/index.php/fr/ubuntu-fr/257-des-depots-fedora.html)
 
 # Cassandra
 

@@ -1,0 +1,15 @@
+graph_title Key cache size
+graph_vlabel Bytes
+graph_category Cassandra
+graph_args --base 1024 -l 0
+graph_order org_apache_cassandra_db_caches_keycachesize org_apache_cassandra_db_caches_keycachecapacityinbytes
+
+org_apache_cassandra_db_caches_keycachesize.label size
+org_apache_cassandra_db_caches_keycachesize.min 0
+org_apache_cassandra_db_caches_keycachesize.graph yes
+org_apache_cassandra_db_caches_keycachesize.info Key cache size in bytes.
+
+org_apache_cassandra_db_caches_keycachecapacityinbytes.label capacity
+org_apache_cassandra_db_caches_keycachecapacityinbytes.min 0
+org_apache_cassandra_db_caches_keycachecapacityinbytes.graph yes
+org_apache_cassandra_db_caches_keycachecapacityinbytes.info Key cache capacity in bytes.

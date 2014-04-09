@@ -1,0 +1,16 @@
+graph_title Key cache hit rate
+graph_vlabel %
+graph_category Cassandra
+graph_args --base 1000 --upper-limit 100 --lower-limit 0
+graph_order percent=org_apache_cassandra_db_caches_keycacherecenthitrate
+
+org_apache_cassandra_db_caches_keycacherecenthitrate.label mean rate
+org_apache_cassandra_db_caches_keycacherecenthitrate.graph yes
+org_apache_cassandra_db_caches_keycacherecenthitrate.min 0
+org_apache_cassandra_db_caches_keycacherecenthitrate.max 100
+org_apache_cassandra_db_caches_keycacherecenthitrate.cdef percent,100,*
+org_apache_cassandra_db_caches_keycacherecenthitrate.info Current key cache hit rate for all SSTables.
+
+percent.graph no
+percent.label ratio meanrate
+

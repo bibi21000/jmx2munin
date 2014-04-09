@@ -1,0 +1,16 @@
+graph_title Keyspace1.Standard1 Compression ratio
+graph_vlabel %
+graph_category Cassandra
+graph_args --upper-limit 100 --lower-limit 0 --base 1000
+graph_scale no
+graph_order percent=org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_compressionratio
+
+org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_compressionratio.label compression ratio
+org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_compressionratio.graph yes
+org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_compressionratio.min 0
+org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_compressionratio.max 100
+org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_compressionratio.cdef percent,100,*
+org_apache_cassandra_db_Keyspace1_columnfamilies_Standard1_compressionratio.info Current compression ratio for "Standard1".
+
+percent.graph no
+percent.label ratio compression ratio

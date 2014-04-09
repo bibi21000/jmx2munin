@@ -1,0 +1,15 @@
+graph_title Row cache size
+graph_vlabel Bytes
+graph_category Cassandra
+graph_args --base 1024 -l 0
+graph_order org_apache_cassandra_db_caches_rowcachesize org_apache_cassandra_db_caches_rowcachecapacityinbytes
+
+org_apache_cassandra_db_caches_rowcachesize.label size
+org_apache_cassandra_db_caches_rowcachesize.min 0
+org_apache_cassandra_db_caches_rowcachesize.graph yes
+org_apache_cassandra_db_caches_rowcachesize.info Row cache size in bytes.
+
+org_apache_cassandra_db_caches_rowcachecapacityinbytes.label capacity
+org_apache_cassandra_db_caches_rowcachecapacityinbytes.min 0
+org_apache_cassandra_db_caches_rowcachecapacityinbytes.graph yes
+org_apache_cassandra_db_caches_rowcachecapacityinbytes.info Row cache capacity in bytes.

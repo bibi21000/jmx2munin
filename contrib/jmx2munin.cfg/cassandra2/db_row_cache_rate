@@ -1,0 +1,15 @@
+graph_title Row cache hit rate
+graph_vlabel %
+graph_category Cassandra
+graph_args --base 1000 --upper-limit 100 --lower-limit 0
+graph_order percent=org_apache_cassandra_db_caches_rowcacherecenthitrate
+
+org_apache_cassandra_db_caches_rowcacherecenthitrate.label mean rate
+org_apache_cassandra_db_caches_rowcacherecenthitrate.graph yes
+org_apache_cassandra_db_caches_rowcacherecenthitrate.min 0
+org_apache_cassandra_db_caches_rowcacherecenthitrate.max 100
+org_apache_cassandra_db_caches_rowcacherecenthitrate.cdef percent,100,*
+org_apache_cassandra_db_caches_rowcacherecenthitrate.info Current row cache hit rate for all SSTables.
+
+percent.graph no
+percent.label hit rate

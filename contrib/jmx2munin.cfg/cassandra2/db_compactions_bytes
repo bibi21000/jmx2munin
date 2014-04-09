@@ -2,6 +2,7 @@ graph_title Compaction bytes completed
 graph_vlabel Bytes / ${graph_period}
 graph_category Cassandra
 graph_args --base 1024 -l 0
+graph_order org_apache_cassandra_db_compactionmanager_totalbytescompacted
 
 org_apache_cassandra_db_compactionmanager_totalbytescompacted.label compacted bytes
 org_apache_cassandra_db_compactionmanager_totalbytescompacted.type DERIVE

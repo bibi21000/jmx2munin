@@ -1,0 +1,15 @@
+graph_title Keyspace1.Standard1 Cache hit rate
+graph_vlabel %
+graph_category Cassandra
+graph_args --base 1000 -l 0 --upper-limit 100
+graph_order percent=org_apache_cassandra_metrics_Keyspace1_columnfamily_keycachehitrate_Standard1_value
+
+org_apache_cassandra_metrics_Keyspace1_columnfamily_keycachehitrate_Standard1_value.label hit rate
+org_apache_cassandra_metrics_Keyspace1_columnfamily_keycachehitrate_Standard1_value.graph yes
+org_apache_cassandra_metrics_Keyspace1_columnfamily_keycachehitrate_Standard1_value.min 0
+org_apache_cassandra_metrics_Keyspace1_columnfamily_keycachehitrate_Standard1_value.max 100
+org_apache_cassandra_metrics_Keyspace1_columnfamily_keycachehitrate_Standard1_value.cdef percent,100,*
+org_apache_cassandra_metrics_Keyspace1_columnfamily_keycachehitrate_Standard1_value.info Current cache hit rate for "Standard1".
+
+percent.graph no
+percent.label ratio hit rate
