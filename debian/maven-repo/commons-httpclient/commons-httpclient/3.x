@@ -1,1 +1,0 @@
-/usr/share/maven-repo/commons-httpclient/commons-httpclient/3.x

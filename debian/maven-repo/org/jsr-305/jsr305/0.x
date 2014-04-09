@@ -1,1 +1,0 @@
-/usr/share/maven-repo/org/jsr-305/jsr305/0.x

@@ -1,1 +1,0 @@
-/usr/share/maven-repo/junit/junit/3.x

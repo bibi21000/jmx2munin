@@ -51,4 +51,6 @@ override_dh_install:
 override_dh_clean:
 		rm -f *.save
 		if test -d target; then rm -rf target; fi
+		if test -d bin; then rm -rf bin; fi
+		if test -d debian/maven-repo; then rm -rf debian/maven-repo; fi
 		dh_clean

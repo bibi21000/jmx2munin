@@ -1,1 +1,0 @@
-/usr/share/maven-repo/org/mortbay/jetty/jetty-sslengine/6.x

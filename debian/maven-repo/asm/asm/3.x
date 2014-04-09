@@ -1,1 +1,0 @@
-/usr/share/maven-repo/asm/asm/3.x
